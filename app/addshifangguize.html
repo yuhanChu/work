@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>新增释放规则</title>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_313597_z7iqhm7i5wc.css">
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/addshifangguize.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">合作账户管理>>>新增释放规则设置 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="add-rule-content">
+            <p class="ts">请根据折线图合理设置释放规则</p>
+            <div class="table-box">
+                <div class="list clearfix">
+                    <span class="f_left">名称：</span>
+                    <input type="text" v-model="name">
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">适用类型：</span>
+                    <template>
+                        <i-select style="width:220px;float: left;border-color: #d1d1d1" @on-change="suitableTypeChange">
+                            <i-option v-for="item in syList" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </template>
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">释放依据：</span>
+                    <template>
+                        <i-select style="width:220px;float: left;border-color: #d1d1d1" @on-change="sfChange">
+                            <i-option v-for="item in yjList" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </template>
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">释放方式：</span>
+                    <template>
+                        <i-select style="width:220px;float: left;border-color: #d1d1d1" @on-change="fsChange">
+                            <i-option v-for="item in fsList" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </template>
+                </div>
+                <div class="list clearfix" v-if="cur==1||cur==3">
+                    <span class="f_left">设置比例/数量：</span>
+                    <input type="text" v-model="num" @keyup="numReg">
+                    <span class="unit">%/个</span>
+                </div>
+                <p class="num-ts" v-if="cur==1||cur==3" v-text="numTxt"></p>
+                <div class="list clearfix" v-if="cur==2||cur==4">
+                    <span class="f_left">设置比例：</span>
+                    <div style="float:left;position: relative;">
+                        <div class="manual-add clearfix" v-for="(it,k) in inputList">
+                            <input type="text" class="input" v-model="inputList[k].val" @keyup="numReg(k)">
+                            <span class="unit" v-if="cur==2">%</span>
+                            <span class="unit" v-if="cur==4">个</span>
+                        </div>
+                        <div class="manual-btn" @click="addInput">+</div>
+                        <p class="manual-p" v-text="curTxt"></p>
+                    </div>
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">开始时间：</span>
+                    <template>
+                        <row>
+                            <i-col span="12">
+                                <Date-picker type="date" :editable="false" placeholder="选择日期" style="width: 220px" @on-change="dateChange"></Date-picker>
+                            </i-col>
+                        </row>
+                    </template>
+                    
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">释放周期单位：</span>
+                    <template>
+                        <i-select style="width:220px;float: left;border-color: #d1d1d1" @on-change="nuitChagne">
+                            <i-option v-for="item in nuitList" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </template>
+                    <span class="unit">总周期？？？日</span>
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">适用范围：</span>
+                    <template>
+                        <i-select style="width:220px;float: left;border-color: #d1d1d1" @on-change="scopeChange">
+                            <i-option v-for="item in scopeist" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </template>
+                </div>
+                <div class="list clearfix">
+                    <span class="f_left">规则简介：</span>
+                    <textarea placeholder="简述释放比例/释放量，释放周期，适用范围等重要信息，以供参考" v-model="brief"></textarea>
+                </div>
+                <div class="add-btn clearfix">
+                    <div @click="echaClick">生成折线图</div>
+                    <div @click="submit">提交</div>
+                </div>
+                <div class="echart-box">
+                    <div id="container" style="height: 100%"></div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹窗提示 -->
+        <div id="prompt" v-cloak v-show="promptShow">
+            <div class="layer">新建成功</div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/jq.js"></script>
+<script type="text/javascript" src="js/wdatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.min.js"></script>
+<script type="text/javascript" src="js/echarts.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        list: [{ value: '1', label: 'ETH' }, { value: '2', label: 'RMB' }],
+        syList: [{ value: '1', label: '私募' }, { value: '2', label: '股东' }],
+        yjList: [{ value: '1', label: '账户锁仓总量' }, { value: '2', label: '账户锁仓余量' }],
+        fsList: [{ value: '1', label: '固定比例' }, { value: '2', label: '自定义比例' }, { value: '3', label: '固定数量' }, { value: '4', label: '自定义数量' }],
+        nuitList: [{ value: '1', label: '日' }, { value: '2', label: '周' }, { value: '3', label: '月' }, { value: '5', label: '年' }],
+        scopeist: [
+            { value: '1', label: '私募通用' },
+            { value: '2', label: '亿级账户（一亿以上）' },
+            { value: '3', label: '十亿级账户（十亿以上）' },
+            { value: '4', label: '千万级账户（一千万以上）' }
+        ],
+        dataList: [1, 2, 3, 4, 5],
+        introduceShow: false,
+        promptShow: false,
+        cur: 1,
+        read: false,
+        name: '',
+        /*名称*/
+        suitableType: '',
+        /*适用类型*/
+        releaseBasis: '',
+        /*释放依据*/
+        releaseWay: '',
+        /*释放方式*/
+        setProportion: '',
+        /*设置比例*/
+        date: '',
+        /*开始时间*/
+        nuit: '',
+        /*单位*/
+        scopeApplication: '',
+        /*适用范围*/
+        brief: '',
+        /*简介*/
+        num: '',
+        inputList: [{ val: 0 }],
+        myChart: null,
+    },
+    computed: {
+        numTxt: function() {
+            var text = '';
+            var nnnn = 100 % this.num;
+            if (this.cur == 1) {
+                if (this.num) {
+                    if (nnnn > 0) {
+                        return '提示：前' + parseInt(100 / this.num) + '个周期' + this.num + '%释放，第' + (parseInt(100 / this.num) + 1) + '个周期' + (nnnn) + '%释放'
+                    } else {
+                        return '提示：前' + parseInt(100 / this.num) + '个周期' + this.num + '%释放'
+                    }
+                } else {
+                    return '';
+                }
+            }
+
+        },
+        addNum: function() {
+            var num = 0;
+            $.each(this.inputList, function(i, v) {
+                num += parseInt(v.val)
+            });
+            return num
+        },
+        curTxt: function() {
+            if (this.cur == 2) {
+                if (this.addNum > 0 && this.addNum < 101) {
+                    return '提示：当前' + this.addNum + '%，剩余' + (100 - this.addNum) + '%'
+                } else if (this.addNum > 100) {
+                    return '提示：当前已经超过100%'
+                } else {
+                    return '提示：输入和不能超过百分之百'
+                }
+            }
+            if (this.cur == 4) {
+                return '提示：数量必须大于0'
+            }
+        },
+        zengzhangbili: function() {
+            var _this = this
+            var xNuit = '';
+            var arr = [];
+            var zhegnshu = parseInt(100 / this.num);
+            var yushu = 100 % this.num;
+            for (var i = 0; i < zhegnshu; i++) {
+                arr[i] = _this.num;
+            }
+            if (yushu > 0) {
+                arr.push(yushu + '')
+            }
+            return arr;
+        },
+        xcoordinates: function() {
+            var xNuit = '';
+            var arr = [];
+            if (this.nuit == 1) {
+                xNuit = '日'
+            } else if (this.nuit == 2) {
+                xNuit = '周'
+            } else if (this.nuit == 3) {
+                xNuit = '月'
+            } else if (this.nuit == 4) {
+                xNuit = '季'
+            } else if (this.nuit == 5) {
+                xNuit = '年'
+            }
+            $.each(this.zengzhangbili, function(i, v) {
+                arr.push(i + 1 + xNuit)
+            });
+            return arr
+        },
+        shifangbili: function() {
+            var arr = [];
+            var num = 0;
+            $.each(this.zengzhangbili, function(i, v) {
+                arr.push(num += parseInt(v));
+            });
+            return arr;
+        },
+        option: function() {
+            var json = {
+                title: {},
+                tooltip: {
+                    trigger: 'axis'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        // saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                },
+
+            };
+            if (this.releaseWay == 1) {
+                json.legend = {
+                    data: ['增长比例', '释放比例']
+                }
+                json.yAxis = {
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} (%)'
+                        
+                    }
+                }
+                json.xAxis.data = this.xcoordinates
+                json.series = [{
+                        name: '增长比例',
+                        type: 'line',
+                        stack: '变化量',
+                        color: '#0478d2',
+                        data: this.zengzhangbili
+                    },
+                    {
+                        name: '释放比例',
+                        type: 'line',
+                        stack: '总量',
+                        color: '#3ac8d3',
+                        data: this.shifangbili
+                    }
+                ]
+            }
+            return json;
+        }
+    },
+    methods: {
+        suitableTypeChange(res) {
+            this.suitableType = res;
+        },
+        sfChange: function(res) {
+            this.releaseBasis = res;
+        },
+        fsChange: function(res) {
+            this.releaseWay = res;
+            this.cur = res;
+            this.inputList = [{ val: 0 }];
+        },
+        dateChange(date) {
+            this.date = date;
+        },
+        nuitChagne(res) {
+            this.nuit = res;
+        },
+        scopeChange(res) {
+            this.scopeApplication = res;
+        },
+        echaClick() {
+            console.log()
+            this.myChart.setOption(this.option, true);
+        },
+        submit: function() {},
+        numReg: function(aaa) {
+            var bfb = /^100$|^(\d|[1-9]\d)$/;
+            var sl = /^\+?[1-9][0-9]*$/;
+            if (this.cur == 1) {
+                if (!bfb.test(this.num)) {
+                    this.num = '';
+                }
+            }
+            if (this.cur == 2) {
+                if (!bfb.test(this.inputList[aaa].val)) {
+                    this.inputList[aaa].val = ''
+                }
+            }
+            if (this.cur == 3) {
+                if (!sl.test(this.num)) {
+                    this.num = ''
+                }
+            }
+            if (this.cur == 4) {
+
+                if (!sl.test(this.inputList[aaa].val)) {
+                    this.inputList[aaa].val = ''
+                }
+            }
+        },
+        addInput: function() {
+            this.inputList.push({ val: 0 });
+        }
+    },
+    mounted: function() {
+        var dom = document.getElementById("container");
+        this.myChart = echarts.init(dom);
+        // this.coordinates
+    }
+});
+
+var app = {};
+/*option = null;
+option = ;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}*/
+</script>
+
+</html>
