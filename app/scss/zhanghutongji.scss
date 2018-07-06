@@ -152,7 +152,6 @@ body {
         transform: translateY(-50%);
         right: 20px;
     }
-<<<<<<< HEAD
 }
 
 .statistical-content {
@@ -176,6 +175,17 @@ body {
                 float: left;
                 @include font(12px, #3c3c3c);
                 line-height: 20px;
+                word-break: break-all;
+                i {
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+                .icon-sanjiaodown:before {
+                    content: "\e6b5" !important;
+                }
+                .r180 {
+                    transform: rotate(180deg);
+                }
             }
             .li1 {
                 width: 6.1%;
@@ -196,32 +206,26 @@ body {
                 width: 6.6%;
                 padding-left: 1%
             }
-            ;
             .li5 {
                 width: 15%;
-                padding-left: 1%
+                padding-left: 1%;
             }
-            ;
             .li6 {
                 width: 14.1%;
                 padding-left: 1%
             }
-            ;
             .li7 {
                 width: 14.6%;
                 padding-left: 1%
             }
-            ;
             .li8 {
                 width: 14.8%;
                 padding-left: 1%
             }
-            ;
             .li9 {
                 width: 7.2%;
                 padding-left: 1%
             }
-            ;
         }
 
         .statistical-list {
@@ -239,6 +243,8 @@ body {
         margin-top: 18px;
     }
 }
+
+
 
 /* 分页样式修改 */
 
@@ -279,6 +285,4 @@ body {
 .ivu-page-item-active a,
 .ivu-page-item-active:hover a {
     color: #2d8cf0
-=======
->>>>>>> 363be2b6b65d97f478951b2937848bb4e7723107
 }

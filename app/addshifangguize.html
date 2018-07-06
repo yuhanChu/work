@@ -38,24 +38,25 @@
                 <div class="list clearfix">
                     <span class="f_left">释放方式：</span>
                     <template>
-                        <i-select style="width:220px;float: left;border-color: #d1d1d1" @on-change="fsChange">
+                        <i-select style="width:220px;float: left;border-color: #d1d1d1" v-model="releaseWay" @on-change="fsChange">
                             <i-option v-for="item in fsList" :value="item.value">{{ item.label }}</i-option>
                         </i-select>
                     </template>
                 </div>
-                <div class="list clearfix" v-if="cur==1||cur==3">
+                <div class="list clearfix" v-if="releaseWay==1||releaseWay==3">
                     <span class="f_left">设置比例/数量：</span>
                     <input type="text" v-model="num" @keyup="numReg">
-                    <span class="unit">%/个</span>
+                    <span class="unit" v-if="releaseWay==1">%</span>
+                    <span class="unit" v-if="releaseWay==3">%</span>
                 </div>
-                <p class="num-ts" v-if="cur==1||cur==3" v-text="numTxt"></p>
-                <div class="list clearfix" v-if="cur==2||cur==4">
+                <p class="num-ts" v-if="releaseWay==1||releaseWay==3" v-text="numTxt"></p>
+                <div class="list clearfix" v-if="releaseWay==2||releaseWay==4">
                     <span class="f_left">设置比例：</span>
                     <div style="float:left;position: relative;">
                         <div class="manual-add clearfix" v-for="(it,k) in inputList">
                             <input type="text" class="input" v-model="inputList[k].val" @keyup="numReg(k)">
-                            <span class="unit" v-if="cur==2">%</span>
-                            <span class="unit" v-if="cur==4">个</span>
+                            <span class="unit" v-if="releaseWay==2">%</span>
+                            <span class="unit" v-if="releaseWay==4">个</span>
                         </div>
                         <div class="manual-btn" @click="addInput">+</div>
                         <p class="manual-p" v-text="curTxt"></p>
@@ -138,7 +139,7 @@ var app = new Vue({
         /*适用类型*/
         releaseBasis: '',
         /*释放依据*/
-        releaseWay: '',
+        releaseWay: '1',
         /*释放方式*/
         setProportion: '',
         /*设置比例*/

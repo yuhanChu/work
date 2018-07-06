@@ -6,27 +6,23 @@
     <title>账户统计</title>
     <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_313597_z7iqhm7i5wc.css">
     <link rel="stylesheet" type="text/css" href="css/iview.css">
-<<<<<<< HEAD
     <link rel="stylesheet" type="text/css" href="css/zhanghutongji.css">
-=======
-    <link rel="stylesheet" type="text/css" href="css/addshifangguize.css">
->>>>>>> 363be2b6b65d97f478951b2937848bb4e7723107
 </head>
 
 <body>
     <div id="app">
         <div class="head">合作账户管理>>>账户统计 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
-<<<<<<< HEAD
         <div class="statistical-content">
             <div class="echart-box clearfix">
                 <template>
-                    <i-select style="width:190px;float: right" placeholder="账户变化量">
-                        <i-option v-for="item in variation" :value="item.value">{{ item.label }}</i-option>
+                    <i-select style="width:190px;float: right" placeholder="账户变化量" @on-change="dayChange">
+                        <i-option v-for="item in variationList" :value="item.value">{{ item.label }}</i-option>
                     </i-select>
-                    <i-select style="width:190px;float: right;margin-right:20px;" placeholder="显示数量">
+                    <i-select style="width:190px;float: right;margin-right:20px;" placeholder="显示数量" @on-change="numChange">
                         <i-option v-for="item in numList" :value="item.value">{{ item.label }}</i-option>
                     </i-select>
                 </template>
+                <div id="container" style="height: 100%;margin-top:32px;"></div>
             </div>
             <div class="statistical-list-box">
                 <ul class="statistical-nav clearfix">
@@ -34,23 +30,23 @@
                     <li class="li2">账户手机号</li>
                     <li class="li3">EOS主网账号名</li>
                     <li class="li4">姓名</li>
-                    <li class="li5">前一日持仓量变化</li>
-                    <li class="li6">前3日持仓量变化</li>
-                    <li class="li7">一周持仓量变化</li>
+                    <li class="li5">前一日持仓量变化 <i class="iconfont icon-sanjiaodown"></i></li>
+                    <li class="li6">前3日持仓量变化 <i class="iconfont icon-sanjiaodown"></i></li>
+                    <li class="li7">一周持仓量变化 <i class="iconfont icon-sanjiaodown"></i></li>
                     <li class="li8">当前持仓量</li>
                     <li class="li9">持仓量占比</li>
                 </ul>
                 <div class="list-box">
-                    <ul class="statistical-list clearfix" v-for="it in dataList">
-                        <li class="li1">排名</li>
-                        <li class="li2">账户手机号</li>
-                        <li class="li3">EOS主网账号名</li>
-                        <li class="li4">姓名</li>
-                        <li class="li5">前一日持仓量变化</li>
-                        <li class="li6">前3日持仓量变化</li>
-                        <li class="li7">一周持仓量变化</li>
-                        <li class="li8">当前持仓量</li>
-                        <li class="li9">持仓量占比</li>
+                    <ul class="statistical-list clearfix" v-for="(it,k) in dataList">
+                        <li class="li1" v-text="k+1">1</li>
+                        <li class="li2">13600000000</li>
+                        <li class="li3">zhangsan</li>
+                        <li class="li4">张三</li>
+                        <li class="li5" v-text="(k+1)*1000">+12345678901.0000</li>
+                        <li class="li6" v-text="(k+1)*10">-12345678901.0000</li>
+                        <li class="li7" v-text="(k+1)*20">-12345678901.0000</li>
+                        <li class="li8">12345678901.0000</li>
+                        <li class="li9">6.125%</li>
                     </ul>
                 </div>
             </div>
@@ -61,8 +57,6 @@
                 </template>
             </div>
         </div>
-=======
->>>>>>> 363be2b6b65d97f478951b2937848bb4e7723107
     </div>
 </body>
 <script type="text/javascript" src="js/jq.js"></script>
@@ -75,26 +69,70 @@ var app = new Vue({
     el: '#app',
     data: {
         list: [{ value: '1', label: 'ETH' }, { value: '2', label: 'RMB' }],
-<<<<<<< HEAD
-        variation:[{value:'1',label:'按昨日'},{value:'2',label:'按三日'},{value:'3',label:'按一周'}],
-        numList:[{value:'1',label:'显示数量'},{value:'2',label:'显示比例'}],
-=======
->>>>>>> 363be2b6b65d97f478951b2937848bb4e7723107
+        variationList: [{ value: '1', label: '按昨日' }, { value: '2', label: '按三日' }, { value: '3', label: '按一周' }],
+        numList: [{ value: '1', label: '显示数量' }, { value: '2', label: '显示比例' }],
         dataList: [1, 2, 3, 4, 5],
         introduceShow: false,
         promptShow: false,
-        cur: 2
+        cur: 2,
+        variation:'',
+        num:'',
     },
-<<<<<<< HEAD
-    methods: {},
-});
-=======
-    methods:{
+    methods: {
+        dayChange(res) {
+            this.variation = res;
+        },
+        numChange(res) {
+            this.num = res;
+        }
     },
 });
 
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: '持仓量统计',
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['账户变化量', '账户数量']
+    },
+    toolbox: {
+        show: false,
+    },
+    calculable: true,
+    xAxis: [{
+        type: 'category',
+        data: ['零至一万', '一万至十万', '十万至一百万', '一百万至一千万', '一千万至五千万', '五千万至一亿', '一亿至十亿', '十亿以上']
+    }],
+    yAxis: [{
+        type: 'value',
+    }],
+    series: [{
+            name: '账户变化量',
+            type: 'bar',
+            color:'#0478d2',
+            data: [100, 5, 20, 23, 25, 76.7, 135,130],
 
->>>>>>> 363be2b6b65d97f478951b2937848bb4e7723107
+        },
+        {
+            name: '账户数量',
+            color:'#3ac8d3',
+            type: 'bar',
+            data: [2, 5, -9, 26, 28.7, 70, -10,10],
+
+
+        }
+    ]
+};
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
 </script>
 
 </html>
