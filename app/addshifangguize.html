@@ -209,6 +209,10 @@ var app = new Vue({
                 for (var i = 0; i < 8; i++) {
                     arr[i] = parseInt(this.num);
                 }
+            } else {
+                $.each(this.inputList, function(i, v) {
+                    arr.push(v.val);
+                })
             }
             return arr;
         },
@@ -265,7 +269,7 @@ var app = new Vue({
                 },
 
             };
-            if (this.releaseWay == 1) {
+            if (this.releaseWay == 1 || this.releaseWay == 2) {
                 json.legend = {
                     data: ['增长比例', '释放比例']
                 }
@@ -291,7 +295,7 @@ var app = new Vue({
                     }
                 ]
             }
-            if (this.releaseWay == 3) {
+            if (this.releaseWay == 3 || this.releaseWay == 4) {
                 json.legend = {
                     data: ['增长量', '释放量']
                 }
@@ -342,13 +346,21 @@ var app = new Vue({
             this.scopeApplication = res;
         },
         echaClick() {
-        	console.log(this.firstLine)
             if (this.option.legend && this.option.yAxis && this.option.series) {
-                this.myChart.setOption(this.option, true);
+                if (this.releaseWay == 2) {
+
+                    if (this.addNum == 100) {
+                        this.myChart.setOption(this.option, true);
+                    } else {
+                    	alert('设置百分比之和必须是100%')
+                    }
+                } else {
+                    this.myChart.setOption(this.option, true);
+                }
+
             } else {
                 alert('请填写所有内容')
             }
-
         },
         submit: function() {},
         numReg: function(aaa) {
