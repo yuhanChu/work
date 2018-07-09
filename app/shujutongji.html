@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数据统计</title>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_313597_z7iqhm7i5wc.css">
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/shujutongji.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">token管理>>>数据统计 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <!-- token分布 -->
+        <template v-if="cur==2">
+            <div class="token-content">
+                <div class="token-btn-box clearfix">
+                    <div class="token-btn">历史走势</div>
+                    <div class="token-btn">Token分布</div>
+                    <div class="token-btn">私募统计</div>
+                </div>
+                <div class="echart-box">
+                    <div class="f_left echart-box-left">
+                        <template>
+                            <i-select style="width:220px;">
+                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                            </i-select>
+                        </template>
+                    </div>
+                    <div class="echart-box-right f_left">
+                    </div>
+                </div>
+                <div class="token-list-box">
+                    <div class="sx-box clearfix">
+                        <span class="f_left">近期释放：</span>
+                        <template>
+                            <i-select style="width:220px;float: left">
+                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                            </i-select>
+                        </template>
+                    </div>
+                    <div class="list-box">
+                        <ul class="token-nav clearfix">
+                            <li class="li1">序号</li>
+                            <li class="li2">手机号</li>
+                            <li class="li3">姓名</li>
+                            <li class="li4">EOS主网账户</li>
+                            <li class="li5">公钥地址</li>
+                            <li class="li6">本次释放量</li>
+                            <li class="li7">待释放量</li>
+                            <li class="li8">释放规则</li>
+                            <li class="li9">释放时间</li>
+                            <li class="li10">操作</li>
+                        </ul>
+                        <div>
+                            <ul class="list clearfix" v-for="it in list">
+                                <li class="li1">1</li>
+                                <li class="li2">13333333333</li>
+                                <li class="li3">张三</li>
+                                <li class="li4">mikkle</li>
+                                <li class="li5">57we542...a3ce45</li>
+                                <li class="li6">160000.0000</li>
+                                <li class="li7">9000000.0000</li>
+                                <li class="li8">3+1规则</li>
+                                <li class="li9">2018-7-2 15:02:07</li>
+                                <li class="li10"><a href="javascript:;">查看数据</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="fy">
+                    <span>释放量：1694984984.0000    释放账户：16</span>
+                    <template>
+                        <Page :total="100" size="small"></Page>
+                    </template>
+                </div>
+            </div>
+        </template>
+        <!-- 历史走势 -->
+        <template v-if="cur==1">
+            <div class="history-content">
+                <div class="data-box clearfix">
+                    <div class="data-list f_left">
+                        <p class="price">￥0.019 <span>+16.00%</span></p>
+                        <span>24H最高：<span>￥0.019</span></span>
+                        <span>24H最低：<span>￥0.019</span></span>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <!-- 查看数据 -->
+        <div id="check" v-show="checkShow" v-cloak>
+            <div class="layer">
+                <div class="layer-top">
+                    <i class="iconfont icon-close"></i>
+                </div>
+                <div class="layer-content">
+                    <div class="list clearfix">
+                        <span class="f_left">释放时间：</span>
+                        <span class="f_left two">2018-7-2 15:02:21</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">手机号：</span>
+                        <span class="f_left two">1333333333</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">姓名：</span>
+                        <span class="f_left two">张三</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">EOS蛛网账户：</span>
+                        <span class="f_left two">mikkle</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">公钥地址：</span>
+                        <span class="f_left two">5165as65d6as4d654as6da6s4d</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">本次释放量：</span>
+                        <span class="f_left two">160000.0000</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">待释放量：</span>
+                        <span class="f_left two">9000000.00000</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">释放规则：</span>
+                        <span class="f_left two">3+1规则</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">释放依据：</span>
+                        <span class="f_left two">账户锁仓总量</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">释放方式：</span>
+                        <span class="f_left two">自定义比例释放</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">释放周期：</span>
+                        <span class="f_left two">第6期</span>
+                    </div>
+                    <div class="list clearfix">
+                        <span class="f_left">释放比例：</span>
+                        <span class="f_left two">2.43%</span>
+                    </div>
+                    <div class="close-btn">关闭</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/jq.js"></script>
+<script type="text/javascript" src="js/echarts.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.min.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        typeList: [],
+        list: [1, 2, 2, 1, 2],
+        cur: 1,
+        checkShow: false,
+    },
+    methods: {
+
+    }
+})
+</script>
+
+</html>
