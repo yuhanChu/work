@@ -24,6 +24,14 @@
                     <input type="text">
                 </div>
                 <div class="list clearfix">
+                    <span class="f_left">账户类型：</span>
+                    <template>
+                        <i-select style="width:220px;float:left" v-model="private" @on-change="privateChange">
+                            <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </template>
+                </div>
+                <div class="list clearfix">
                     <span class="f_left">私募方式：</span>
                     <template>
                         <i-select style="width:220px;float:left" v-model="private" @on-change="privateChange">
@@ -97,6 +105,7 @@ var app = new Vue({
     data: {
         privateList: [{value:'1',label:'ETH'},{value:'2',label:'RMB'}],
         rulesList: [{value:'1',label:'ETH'},{value:'2',label:'RMB'}],
+        typeList:[],
         private:'1',
         loadingShow:false,
         successfulShow:false,
