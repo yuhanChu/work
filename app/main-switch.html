@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>主网开关</title>
+    <!-- <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_313597_z7iqhm7i5wc.css"> -->
+    <link rel="stylesheet" type="text/css" href="fonts/cyh_font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/main-switch.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">系统设置>>>主网开关 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="main-content">
+            <div>
+                <span class="f_left">EOS主网开关</span>
+                <div class="f_right">
+                    <i-switch size="large" @on-change="switchChange" v-model="ss">
+                        <span slot="open">开启</span>
+                        <span slot="close">关闭</span>
+                    </i-switch>
+                </div>
+            </div>
+        </div>
+        <!-- 输入密码 -->
+        <div id="password" v-cloak v-show="passwordShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <i class="iconfont icon-close" @click="passwordShow=!passwordShow"></i>
+                </div>
+                <div class="layer-content">
+                    <p>请输入操作密码</p>
+                    <input type="password" v-text="passTxt">
+                    <div>确定</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="tools/vue.min.js"></script>
+<script type="text/javascript" src="js/iview.min.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        ss: true,
+        passwordShow:true,
+        passTxt:''
+    },
+    methods: {
+        switchChange(res) {
+            console.log(res)
+        }
+    },
+});
+</script>
+
+</html>

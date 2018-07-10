@@ -19,6 +19,7 @@
                 <div @click="showBox(3)">登录信息</div>
                 <div @click="showBox(4)">交易信息</div>
                 <div @click="showBox(5)">变更历史</div>
+                <div @click="showBox(6)">EOS账户状态</div>
             </div>
             <div class="account-details-main">
                 <!-- 账户 个人 登录信息 -->
@@ -174,6 +175,24 @@
                         </div>
                     </div>
                 </template>
+                <template v-if="cur==6">
+                    <div class="eos-box">
+                        <div class="list clearfix">
+                            <span class="f_left">EOS主网账号名：</span>
+                            <div class="f_left">mikkle</div>
+                        </div>
+                        <div class="list clearfix">
+                            <span class="f_left">数据库状态：</span>
+                            <div class="f_left">正常</div>
+                            <div class="database-btn list-btn">修改状态</div>
+                        </div>
+                        <div class="list clearfix">
+                            <span class="f_left">主网状态：</span>
+                            <div class="f_left">关闭</div>
+                            <div class="database-btn list-btn">查询</div>
+                        </div>
+                    </div>
+                </template>
             </div>
         </div>
         <!-- 备注弹窗 -->
@@ -302,6 +321,43 @@
                 </div>
             </div>
         </div>
+        <!-- 主网状态 -->
+        <div id="eos-status" v-cloak v-show="eosStatusShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <i class="iconfont icon-close" @click="eosStatusShow=!eosStatusShow"></i>
+                </div>
+                <div class="layer-content">
+                    <div>查询时间：2018-09-09 15:45:01</div>
+                    <div>主网状态：正常</div>
+                </div>
+            </div>
+        </div>
+        <!-- 修改状态 -->
+        <div id="alter-status" v-cloak v-show="alterShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <i class="iconfont icon-close" @click="alterShow=!alterShow"></i>
+                </div>
+                <div class="layer-content">
+                    <div>开启</div>
+                    <div>关闭</div>
+                </div>
+            </div>
+        </div>
+        <!-- 输入密码 -->
+        <div id="password" v-cloak v-show="passwordShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <i class="iconfont icon-close" @click="passwordShow=!passwordShow"></i>
+                </div>
+                <div class="layer-content">
+                    <p>请输入操作密码</p>
+                    <input type="password">
+                    <div>确定</div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="js/jq.js"></script>
@@ -314,7 +370,7 @@ var app = new Vue({
     data: {
         list: [],
         dataList: ['1', '2', 3, 4],
-        cur: 4,
+        cur: 6,
         remarkEmpty: false,
         addRemark: false,
         dropShow: false,
@@ -326,6 +382,9 @@ var app = new Vue({
         okTrue: '',
         remarkTxt: '',
         statusShow: false,
+        eosStatusShow: false,
+        alterShow: false,
+        passwordShow:false,
     },
     computed: {
         timeShow() {

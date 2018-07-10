@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>搜索关键词</title>
+    <!-- <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_313597_z7iqhm7i5wc.css"> -->
+    <link rel="stylesheet" type="text/css" href="fonts/cyh_font/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="css/search-keyword.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">系统设置>>>搜索关键词设置 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="serch-content">
+            <div class="list-box">
+                <div class="list-title bb">
+                    <span class="f_left">中文</span>
+                    <i class="iconfont icon-xiangyoujiantou r90"></i>
+                </div>
+                <div class="list-bottom">
+                    <div class="list clearfix">
+                        <div class="f_left"><span>网页标题</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>网页标题的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>关键词</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>关键词的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>描述语</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>描述语的描述</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-box h50">
+                <div class="list-title bb">
+                    <span class="f_left">English</span>
+                    <i class="iconfont icon-xiangyoujiantou"></i>
+                </div>
+                <div class="list-bottom">
+                    <div class="list clearfix">
+                        <div class="f_left"><span>网页标题</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>网页标题的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>关键词</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>关键词的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>描述语</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>描述语的描述</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-box h50">
+                <div class="list-title bb">
+                    <span class="f_left">俄文</span>
+                    <i class="iconfont icon-xiangyoujiantou"></i>
+                </div>
+                <div class="list-bottom">
+                    <div class="list clearfix">
+                        <div class="f_left"><span>网页标题</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>网页标题的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>关键词</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>关键词的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>描述语</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>描述语的描述</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-box h50">
+                <div class="list-title bb">
+                    <span class="f_left">中文繁体</span>
+                    <i class="iconfont icon-xiangyoujiantou"></i>
+                </div>
+                <div class="list-bottom">
+                    <div class="list clearfix">
+                        <div class="f_left"><span>网页标题</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>网页标题的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>关键词</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>关键词的描述</p>
+                        </div>
+                    </div>
+                    <div class="list clearfix">
+                        <div class="f_left"><span>描述语</span></div>
+                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                        <div class="f_right">
+                            <p>描述语的描述</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="add-remark" v-show="addKeyword" v-cloak>
+            <div class="layer">
+                <div class="layer-top">
+                    <span v-text=""></span>
+                    <i class="iconfont icon-close" @click="keywordClose"></i>
+                </div>
+                <div class="txt-box">
+                    <textarea v-model="keywordTxt"></textarea>
+                    <div class="add-remark-btn" @click="keywordTrue">完成</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="tools/vue.min.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+    	addKeyword:false,
+    	keywordTxt:'',
+    	layerTile:'编辑网页标题',
+    },
+    methods: {
+    	keywordClose() {
+    		this.addKeyword = false;
+    		this.keywordTxt = '';
+    		this.layerTile = ''
+    	},
+    	keywordTrue() {
+    		if (!this.keywordTxt) {
+    			alert('填写文本框')
+    		} else {
+
+    		}
+    	}
+    }
+});
+</script>
+
+</html>
