@@ -13,20 +13,24 @@
     <div id="app">
         <div class="head">系统设置>>>搜索关键词设置 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
         <div class="serch-content">
-            <div class="list-box">
+            <div class="list-box" v-for="it in forObj">
                 <div class="list-title bb">
-                    <span class="f_left">中文</span>
+                    <span class="f_left">{{it.name}}</span>
                     <i class="iconfont icon-xiangyoujiantou r90"></i>
                 </div>
                 <div class="list-bottom">
-                    <div class="list clearfix">
-                        <div class="f_left"><span>网页标题</span></div>
-                        <div class="f_right"><a href="javascript:;">编辑</a></div>
+                    <div class="list clearfix" v-for="(i,k) in it.data">
+                        <div class="f_left">
+                        	<span v-if="k=='title'">网页标题</span>
+                        	<span v-if="k=='key_words'">关键词</span>
+                        	<span v-if="k=='description'">描述语</span>
+                        </div>
+                        <div class="f_right"><a href="javascript:;" @click="open()">编辑</a></div>
                         <div class="f_right">
-                            <p>网页标题的描述</p>
+                            <p v-text="i">网页标题的描述</p>
                         </div>
                     </div>
-                    <div class="list clearfix">
+                    <!-- <div class="list clearfix">
                         <div class="f_left"><span>关键词</span></div>
                         <div class="f_right"><a href="javascript:;">编辑</a></div>
                         <div class="f_right">
@@ -39,10 +43,10 @@
                         <div class="f_right">
                             <p>描述语的描述</p>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
-            <div class="list-box h50">
+            <!-- <div class="list-box h50">
                 <div class="list-title bb">
                     <span class="f_left">English</span>
                     <i class="iconfont icon-xiangyoujiantou"></i>
@@ -128,7 +132,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div id="add-remark" v-show="addKeyword" v-cloak>
             <div class="layer">
@@ -149,23 +153,33 @@
 var app = new Vue({
     el: '#app',
     data: {
-    	addKeyword:false,
-    	keywordTxt:'',
-    	layerTile:'编辑网页标题',
+        addKeyword: false,
+        keywordTxt: '',
+        layerTile: '编辑网页标题',
+        forObj: [
+            { code: '179', name: '中文', data: {title: '1', key_words: '2', description: '3' } },
+            { code: '113', name: 'English', data: { title: '', key_words: '', description: '' } },
+            { code: '156', name: '俄语', data: { title: '', key_words: '', description: '' } },
+            { code: '180', name: '繁体中文', data: { title: '', key_words: '', description: '' } }
+        ],
+        current:null,
     },
     methods: {
-    	keywordClose() {
-    		this.addKeyword = false;
-    		this.keywordTxt = '';
-    		this.layerTile = ''
-    	},
-    	keywordTrue() {
-    		if (!this.keywordTxt) {
-    			alert('填写文本框')
-    		} else {
+        keywordClose() {
+            this.addKeyword = false;
+            this.keywordTxt = '';
+            this.layerTile = ''
+        },
+        open() {
+        	this.addKeyword = true;
+        },
+        keywordTrue() {
+            if (!this.keywordTxt) {
+                alert('填写文本框')
+            } else {
 
-    		}
-    	}
+            }
+        }
     }
 });
 </script>

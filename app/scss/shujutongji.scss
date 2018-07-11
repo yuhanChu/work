@@ -154,25 +154,30 @@ body {
     }
 }
 
-.token-content {
+#app .content {
     background: #fff;
     margin-top: 20px;
     padding: 20px;
     border-top: 1px solid #d1d1d1;
-    .token-btn-box {
-        .token-btn {
-            @include btn(84px, 30px, #f5f5f5);
-            @include font(14px, #3c3c3c);
-            border-radius: 4px;
-            border: 1px solid #d0d0d0;
-            float: left;
-            margin-left: 10px;
-            &:first-child {
-                margin-left: 0;
-            }
+}
+
+.token-btn-box {
+    overflow: hidden;
+    margin-bottom: 20px;
+    .token-btn {
+        @include btn(100px, 30px, #f5f5f5);
+        @include font(14px, #3c3c3c);
+        border-radius: 4px;
+        border: 1px solid #d0d0d0;
+        float: left;
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
         }
     }
+}
 
+.token-content {
     .echart-box {
         margin-top: 18px;
         padding-top: 20px;
@@ -282,47 +287,209 @@ body {
 }
 
 .history-content {
-    background: #fff;
-    margin-top: 20px;
-    padding: 20px;
-    border-top: 1px solid #d1d1d1;
     .data-box {
         padding: 19px 20px 22px 25px;
         border: 1px solid #d0d0d0;
-        border-left:0;
+        border-left: 0;
         border-right: 0;
         .data-list {
             border-left: 1px solid #d0d0d0;
+            height: 118px;
+            width: 25%;
             &:first-child {
                 border-left: 0;
             }
-            .price {
-                @include font(36px,#3c3c3c);
-                line-height: 36px;
-                span {
-                    @include font(12px,#fff);
-                    height: 20px;
-                    line-height: 20px;
-                    padding: 0 8px;
-                    background: #0478d2;
-                    display: inline-block;
+            &.one {
+                .price {
+                    @include font(36px, #3c3c3c);
+                    line-height: 36px;
+                    span {
+                        @include font(12px, #fff);
+                        height: 20px;
+                        line-height: 20px;
+                        padding: 0 8px;
+                        background: #0478d2;
+                        display: inline-block;
+                    }
+                }
+                &>span {
+                    display: block;
+                    @include font(14px, #999999);
+                    line-height: 24px;
+                    margin-top: 24px;
+                    &:last-child {
+                        margin-top: 0;
+                    }
+                    span {
+                        color: #3c3c3c;
+                    }
                 }
             }
-            &>span {
-                display: block;
-                @include font(14px,#999999);
-                line-height: 24px;
-                margin-top: 24px;
-                &:last-child {
-                    margin-top: 0;
+            &.two {
+                padding-left: 7%;
+                &>span {
+                    display: block;
+                    @include font(14px, #999999);
+                    line-height: 28px;
                 }
-                span {
-                    color: #3c3c3c;
+                &>p {
+                    @inlcude font(18px, #3c3c3c);
+                    line-height: 28px;
                 }
             }
         }
     }
+
+    .sx-box {
+        margin-top: 20px;
+        overflow: hidden;
+        .cen {
+            float: left;
+            height: 30px;
+            line-height: 30px;
+            @include font(14px, #3c3c3c);
+            margin: 0 10px;
+        }
+        .sx-btn {
+            float: right;
+            @include btn(144px, 30px, #f5f5f5);
+            @inlcude font(14px, #3c3c3c);
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+        }
+    }
+
+    .echart-box {
+        height: 278px;
+    }
+    .list-box {
+        margin-top: 20px;
+        border: 1px solid #d0d0d0;
+        ul {
+            overflow: hidden;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            padding: 8px 0 7px;
+            border-bottom: 1px solid #d0d0d0;
+            &:last-child {
+                border-bottom: 0;
+            }
+            &:nth-child(2n+2) {
+                background: #f9f9f9
+            }
+            li {
+                width: 25%;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                @include font(12px, #3c3c3c);
+                line-height: 20px;
+            }
+        }
+    }
 }
+
+.statistical-content {
+    .statistical-top {
+        padding-left: 10px;
+        padding-top: 20px;
+        padding-bottom: 25px;
+        border-top: 1px solid #d0d0d0;
+        &>div {
+            width: 50%;
+            .one-sp {
+                @include font(18px, #999999);
+                line-height: 30px;
+            }
+            &>p {
+                @include font(24px, #3c3c3c);
+                line-height: 36px;
+            }
+            .two-sp {
+                @include font(14px, #999);
+            }
+        }
+    }
+
+    .e-box {
+        height: 240px;
+        &>div {
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+    }
+
+    .list-box {
+        margin-top: 10px;
+        border: 1px solid #d0d0d0;
+        ul {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 8px 0 7px;
+            border-bottom: 1px solid #d0d0d0;
+            &:last-child {
+                border-bottom: 0;
+            }
+            &:nth-child(2n+2) {
+                background: #f9f9f9;
+            }
+            li {
+                @include font(12px, #3c3c3c);
+                line-height: 20px;
+                i {
+                    @include font(12px,#3c3c3c);
+                    cursor:pointer;
+                    margin-left:5px;
+                }
+            }
+            .li1 {
+                width: 17.6%;
+                padding-left: 2%;
+            }
+            .li2 {
+                width: 9.6%;
+                padding-left: 1%;
+            }
+            .li3 {
+                width: 11.6%;
+                padding-left: 1%;
+            }
+            .li4 {
+                width: 13.8%;
+                padding-left: 1%;
+            }
+            .li5 {
+                width: 16.1%;
+                padding-left: 1%;
+            }
+            .li6 {
+                width: 18.5%;
+                padding-left: 1%;
+            }
+            .li7 {
+                width: 12.3%;
+                padding-left: 1%;
+            }
+        }
+    }
+    .fy {
+        &>span {
+            @include font(14px, #999999);
+        }
+        text-align: center;
+        margin-top: 18px;
+    }
+}
+
+
+
+
+
+
 
 
 

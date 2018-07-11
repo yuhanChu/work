@@ -12,83 +12,188 @@
 <body>
     <div id="app">
         <div class="head">token管理>>>数据统计 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
-        <!-- token分布 -->
-        <template v-if="cur==2">
-            <div class="token-content">
-                <div class="token-btn-box clearfix">
-                    <div class="token-btn">历史走势</div>
-                    <div class="token-btn">Token分布</div>
-                    <div class="token-btn">私募统计</div>
-                </div>
-                <div class="echart-box">
-                    <div class="f_left echart-box-left">
-                        <template>
-                            <i-select style="width:220px;">
-                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
-                            </i-select>
-                        </template>
-                    </div>
-                    <div class="echart-box-right f_left">
-                    </div>
-                </div>
-                <div class="token-list-box">
-                    <div class="sx-box clearfix">
-                        <span class="f_left">近期释放：</span>
-                        <template>
-                            <i-select style="width:220px;float: left">
-                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
-                            </i-select>
-                        </template>
-                    </div>
-                    <div class="list-box">
-                        <ul class="token-nav clearfix">
-                            <li class="li1">序号</li>
-                            <li class="li2">手机号</li>
-                            <li class="li3">姓名</li>
-                            <li class="li4">EOS主网账户</li>
-                            <li class="li5">公钥地址</li>
-                            <li class="li6">本次释放量</li>
-                            <li class="li7">待释放量</li>
-                            <li class="li8">释放规则</li>
-                            <li class="li9">释放时间</li>
-                            <li class="li10">操作</li>
-                        </ul>
-                        <div>
-                            <ul class="list clearfix" v-for="it in list">
-                                <li class="li1">1</li>
-                                <li class="li2">13333333333</li>
-                                <li class="li3">张三</li>
-                                <li class="li4">mikkle</li>
-                                <li class="li5">57we542...a3ce45</li>
-                                <li class="li6">160000.0000</li>
-                                <li class="li7">9000000.0000</li>
-                                <li class="li8">3+1规则</li>
-                                <li class="li9">2018-7-2 15:02:07</li>
-                                <li class="li10"><a href="javascript:;">查看数据</a></li>
-                            </ul>
+        <div class="content">
+            <div class="token-btn-box">
+                <div class="token-btn">历史走势</div>
+                <div class="token-btn">Token分布</div>
+                <div class="token-btn">币币互换统计</div>
+            </div>
+            <!-- token分布 -->
+            <template v-if="cur==2">
+                <div class="token-content">
+                    <div class="echart-box">
+                        <div class="f_left echart-box-left">
+                            <template>
+                                <i-select style="width:220px;">
+                                    <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                                </i-select>
+                            </template>
+                        </div>
+                        <div class="echart-box-right f_left">
                         </div>
                     </div>
-                </div>
-                <div class="fy">
-                    <span>释放量：1694984984.0000    释放账户：16</span>
-                    <template>
-                        <Page :total="100" size="small"></Page>
-                    </template>
-                </div>
-            </div>
-        </template>
-        <!-- 历史走势 -->
-        <template v-if="cur==1">
-            <div class="history-content">
-                <div class="data-box clearfix">
-                    <div class="data-list f_left">
-                        <p class="price">￥0.019 <span>+16.00%</span></p>
-                        <span>24H最高：<span>￥0.019</span></span>
-                        <span>24H最低：<span>￥0.019</span></span>
+                    <div class="token-list-box">
+                        <div class="sx-box clearfix">
+                            <span class="f_left">近期释放：</span>
+                            <template>
+                                <i-select style="width:220px;float: left">
+                                    <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                                </i-select>
+                            </template>
+                        </div>
+                        <div class="list-box">
+                            <ul class="token-nav clearfix">
+                                <li class="li1">序号</li>
+                                <li class="li2">手机号</li>
+                                <li class="li3">姓名</li>
+                                <li class="li4">EOS主网账户</li>
+                                <li class="li5">公钥地址</li>
+                                <li class="li6">本次释放量</li>
+                                <li class="li7">待释放量</li>
+                                <li class="li8">释放规则</li>
+                                <li class="li9">释放时间</li>
+                                <li class="li10">操作</li>
+                            </ul>
+                            <div>
+                                <ul class="list clearfix" v-for="it in list">
+                                    <li class="li1">1</li>
+                                    <li class="li2">13333333333</li>
+                                    <li class="li3">张三</li>
+                                    <li class="li4">mikkle</li>
+                                    <li class="li5">57we542...a3ce45</li>
+                                    <li class="li6">160000.0000</li>
+                                    <li class="li7">9000000.0000</li>
+                                    <li class="li8">3+1规则</li>
+                                    <li class="li9">2018-7-2 15:02:07</li>
+                                    <li class="li10"><a href="javascript:;">查看数据</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fy">
+                        <span>释放量：1694984984.0000    释放账户：16</span>
+                        <template>
+                            <Page :total="100" size="small"></Page>
+                        </template>
                     </div>
                 </div>
-            </div>
-        </template>
+            </template>
+            <!-- 历史走势 -->
+            <template v-if="cur==1">
+                <div class="history-content">
+                    <div class="data-box clearfix">
+                        <div class="data-list one f_left">
+                            <p class="price">￥0.019 <span>+16.00%</span></p>
+                            <span>24H最高：<span>￥0.019</span></span>
+                            <span>24H最低：<span>￥0.019</span></span>
+                        </div>
+                        <div class="data-list two f_left">
+                            <span>流通市值</span>
+                            <p>￥3,116,561,610</p>
+                            <span>≈ $196,312,231</span>
+                            <span>≈ 236,615 BTC</span>
+                        </div>
+                        <div class="data-list two f_left">
+                            <span>24H成交额</span>
+                            <p>￥3,116,561,610</p>
+                            <span>≈ $196,312,231</span>
+                            <span>≈ 236,615 BTC</span>
+                        </div>
+                        <div class="data-list two f_left">
+                            <span>流通量</span>
+                            <p>2,214,984,984</p>
+                            <span>总发行量</span>
+                            <p>20,000,000,000</p>
+                        </div>
+                    </div>
+                    <div class="sx-box">
+                        <template>
+                            <i-select style="width:190px;float: left;" placeholder="huobi">
+                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                            </i-select>
+                            <i-select style="width:190px;float: left;margin-left:10px" placeholder="日线">
+                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                            </i-select>
+                            <Date-picker type="date" placeholder="选择日期" style="width: 190px;float: left;margin-left:10px"></Date-picker>
+                            <span class="cen">至</span>
+                            <Date-picker type="date" placeholder="选择日期" style="width: 190px;float: left;"></Date-picker>
+                            <a class="sx-btn" href="javascript:void(0);">huobi.com</a>
+                        </template>
+                    </div>
+                    <div class="echart-box">
+                    </div>
+                    <div class="list-box">
+                        <ul>
+                            <li>交易对</li>
+                            <li>当前价格</li>
+                            <li>涨幅</li>
+                            <li>成交量（COOC）</li>
+                        </ul>
+                        <ul v-for="it in list">
+                            <li>cooc/usdt</li>
+                            <li>0.16</li>
+                            <li>+16.00%</li>
+                            <li>143520.0000</li>
+                        </ul>
+                    </div>
+                </div>
+            </template>
+            <!-- 币币互换统计 -->
+            <template v-if="cur==3">
+                <div class="statistical-content">
+                    <div class="statistical-top clearfix">
+                        <div class="f_left">
+                            <span class="one-sp">总额度</span>
+                            <p>1,923.00ETH + 85,002,310RMB</p>
+                            <span class="two-sp">≈  ￥ 95,656,523.00</span>
+                        </div>
+                        <div class="f_left">
+                            <span class="one-sp">COOC总量</span>
+                            <p>169543130000.00</p>
+                            <span class="two-sp">COOC单价  ≈  ￥ 0.0012</span>
+                        </div>
+                    </div>
+                    <div class="e-box">
+                        <div>
+                            <div id="container" style="height: 100%;width: 100%"></div>
+                        </div>
+                        <div>
+                            <div id="cont" style="height: 100%;width: 100%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <i-select style="width:190px;margin-top:30px;">
+                            <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                        </i-select>
+                    </div>
+                    <div class="list-box">
+                        <ul>
+                            <li class="li1">手机号</li>
+                            <li class="li2">姓名</li>
+                            <li class="li3">币币互换方式</li>
+                            <li class="li4">币币互换额度</li>
+                            <li class="li5">币币互换金额(RMB)<i class="iconfont icon-sanjiaodown"></i></li>
+                            <li class="li6">币币互换比例</li>
+                            <li class="li7">币币互换数量<i class="iconfont icon-sanjiaodown"></i></li>
+                        </ul>
+                        <ul v-for="it in list">
+                            <li class="li1">1333333333</li>
+                            <li class="li2">张三</li>
+                            <li class="li3">ETH</li>
+                            <li class="li4">20.00</li>
+                            <li class="li5">6032.00</li>
+                            <li class="li6">1ETH：40000cooc</li>
+                            <li class="li7">80000.00</li>
+                        </ul>
+                    </div>
+                    <div class="fy">
+                        <template>
+                            <Page :total="100" size="small"></Page>
+                        </template>
+                    </div>
+                </div>
+            </template>
+        </div>
         <!-- 查看数据 -->
         <div id="check" v-show="checkShow" v-cloak>
             <div class="layer">
@@ -160,13 +265,56 @@ var app = new Vue({
     data: {
         typeList: [],
         list: [1, 2, 2, 1, 2],
-        cur: 1,
+        cur: 3,
         checkShow: false,
     },
     methods: {
 
     }
-})
+});
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+option = {
+    title: {
+        text: 'ETH统计',
+        subtext: '',
+        x: 'left'
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient: 'vertical',
+        left: 'right',
+        data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    },
+    series: [{
+        name: '访问来源',
+        type: 'pie',
+        radius: '60%',
+        center: ['30%', '50%'],
+        data: [
+            { value: 335, name: '直接访问' },
+            { value: 310, name: '邮件营销' },
+            { value: 234, name: '联盟广告' },
+            { value: 135, name: '视频广告' },
+            { value: 1548, name: '搜索引擎' }
+        ],
+        itemStyle: {
+            emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+        }
+    }]
+};;
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
 </script>
 
 </html>

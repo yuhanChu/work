@@ -23,6 +23,15 @@
                     </i-switch>
                 </div>
             </div>
+            <div>
+                <span class="f_left">密码加密</span>
+                <div class="f_right">
+                    <i-switch size="large" @on-change="switchChange" v-model="ss">
+                        <span slot="open">开启</span>
+                        <span slot="close">关闭</span>
+                    </i-switch>
+                </div>
+            </div>
         </div>
         <!-- 输入密码 -->
         <div id="password" v-cloak v-show="passwordShow">
