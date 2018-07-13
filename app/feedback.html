@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>意见反馈</title>
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_313597_z7iqhm7i5wc.css">
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/feedback.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">系统设置>>>意见反馈 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="feed-content">
+            <div class="sx-box">
+                <template>
+                    <i-select style="width:190px;" placeholder="回复状态" clearable>
+                        <i-option v-for="item in answerList" :value="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                    <i-select style="width:190px;margin-left: 20px;" placeholder="问题状态" clearable>
+                        <i-option v-for="item in askList" :value="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                </template>
+            </div>
+            <div class="feed-list-box">
+                <ul class="feed-list">
+                    <li class="li1">提问时间</li>
+                    <li class="li2">用户手机号</li>
+                    <li class="li3">问题</li>
+                    <li class="li4">回复状态</li>
+                    <li class="li5">问题状态</li>
+                    <li class="li6">操作</li>
+                </ul>
+                <ul class="feed-list" v-for="it in dataList">
+                    <li class="li1">2018-7-12 16:33:19</li>
+                    <li class="li2">136 0000 0000</li>
+                    <li class="li3">一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十</li>
+                    <li class="li4">已回复</li>
+                    <li class="li5">正常</li>
+                    <li class="li6"><a href="javascript:;" @click="lookOpen">查看问题</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="look-question" v-cloak v-show="lookShow">
+            <div class="layer">
+                <div class="layer-top clearfix">
+                    <p>查看问题</p>
+                    <span class="close" @click="lookClose"></span>
+                </div>
+                <div class="layer-content">
+                    <p class="ques">EOS怎么提现？？？？？</p>
+                    <div class="img-box">
+                        <img src="images/houtai/ques.png">
+                        <img src="images/houtai/ques.png">
+                        <img src="images/houtai/ques.png">
+                    </div>
+                    <p class="time-status">
+                        <span>2018-7-12 16:28:46</span>
+                        <span>133 3333 3333</span>
+                        <span>正常</span>
+                    </p>
+                    <template>
+                        <div class="ask-box" v-show="!asked">
+                            <p>回复内容：</p>
+                            <p>OS怎么提现？？？？？？？</p>
+                        </div>
+                        <textarea placeholder="回复内容" v-show="asked" v-model="askTxt"></textarea>
+                        <div class="close-btn" v-show="asked">回复</div>
+                        <div class="close-btn" v-show="!asked" @click="lookClose">关闭</div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/jq.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.min.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        askList: [{ value: '1', label: '正常' }, { value: '2', label: '关闭' }, { value: '3', label: '删除' }],
+        answerList: [{ value: '1', label: '已回复' }, { value: '2', label: '待回复' }],
+        dataList: [1, 2, 3],
+        asked: true,
+        lookShow:false,
+        askTxt:''
+    },
+    methods: {
+    	lookOpen() {
+    		this.lookShow = true;
+    	},
+    	lookClose() {
+    		this.lookShow = false;
+    		this.askTxt = ''
+    	},
+    }
+});
+</script>
+
+</html>

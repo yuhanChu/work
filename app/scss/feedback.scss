@@ -1,0 +1,308 @@
+body,
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0
+}
+
+input,
+textarea {
+    margin-bottom: 0;
+    box-shadow: none;
+    box-sizing: border-box
+}
+
+input[disabled],
+input[readonly],
+select[disabled],
+select[readonly],
+textarea[disabled],
+textarea[readonly] {
+    background: 0 0;
+    cursor: default
+}
+
+p {
+    margin-bottom: 0
+}
+
+ol,
+ul {
+    list-style: none;
+    margin-bottom: 0;
+    padding: 0
+}
+
+a {
+    text-decoration: none;
+    color: #333
+}
+
+a:hover {
+    color: #333;
+    text-decoration: none
+}
+
+a:link {
+    text-decoration: none
+}
+
+i {
+    font-style: normal
+}
+
+.f_left {
+    float: left
+}
+
+label {
+    margin-bottom: 0
+}
+
+.f_right {
+    float: right
+}
+
+.clearfix::after {
+    display: block;
+    content: '';
+    clear: both;
+    height: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    outline: 0;
+    resize: none;
+    box-shadow: none!important
+}
+
+.uneditable-input,
+input[type=email],
+input[type=url],
+input[type=search],
+input[type=tel],
+input[type=color],
+input[type=text],
+input[type=password],
+input[type=datetime],
+input[type=datetime-local],
+input[type=date],
+input[type=month],
+input[type=time],
+input[type=week],
+input[type=number],
+select,
+textarea {
+    margin-bottom: 0!important
+}
+
+button {
+    border: none!important;
+    background: 0 0!important
+}
+
+body {
+    background: #f8f8f8
+}
+
+@mixin font($size, $color) {
+    font-size: $size;
+    color: $color;
+}
+
+@mixin btn($w, $h, $bg:#ff7669) {
+    width: $w;
+    height: $h;
+    line-height: $h;
+    text-align: center;
+    background-color: $bg;
+    cursor: pointer;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+#app {
+    width: 1170px;
+    margin: 0 auto;
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box; // will-change:unset !important;
+    }
+}
+
+.head {
+    padding: 27px 0 30px 20px;
+    @include font(28px, #3c3c3c);
+    background: #ffffff;
+    border-bottom: 1px solid #d1d1d1;
+    position: relative;
+    .back {
+        @include font(14px, #3c3c3c);
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 20px;
+    }
+}
+
+.feed-content {
+    background: #fff;
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #d1d1d1;
+
+    .feed-list-box {
+        margin-top: 20px;
+        border: 1px solid #d0d0d0;
+        .feed-list {
+            display: flex;
+            align-items: center;
+            padding: 7px 0 7px;
+            border-bottom: 1px solid #d0d0d0;
+            &:last-child {
+                border-bottom: 0;
+            }
+            &:nth-child(2n+2) {
+                background: #f9f9f9;
+            }
+            li {
+                @include font(12px, #3c3c3c);
+                line-height: 20px;
+                padding-left: 1%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                a {
+                    color: #0478d2;
+                }
+            }
+            .li1 {
+                width: 196/1130*100+%;
+                padding-left: 2%
+            }
+            .li2 {
+                width: 148/1130*100+%
+            }
+            .li3 {
+                width: 457/1130*100+%
+            }
+            .li4 {
+                width: 122/1130*100+%
+            }
+            .li5 {
+                width: 106/1130*100+%
+            }
+            .li6 {
+                width: 100/1130*100+%
+            }
+        }
+    }
+}
+
+#look-question {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    z-index: 1000;
+
+    .layer {
+        background: #fff;
+        position: absolute;
+        border: 1px solid #d0d0d0;
+        top: 50%;
+        left: 50%;
+        width:682px;
+        transform: translateX(-50%) translateY(-50%);
+        .layer-top {
+            height: 30px;
+            line-height: 30px;
+            background: #0478d2;
+            @include font(14px, #ffffff);
+            padding-left: 20px;
+            i {
+                @include font(16px, #fff);
+                float: right;
+                cursor: pointer;
+                margin-right: 10px;
+                font-weight: bold;
+                line-height: 30;
+                float: right;
+
+            }
+            .close {
+                width:30px;
+                height:30px;
+                background: url(../images/houtai/close.png) no-repeat center center;
+                float: right;
+                cursor: pointer;
+            }
+            p {
+                text-align:left;
+                float:left;
+                line-height: 30px;
+            }
+        }
+
+        .layer-content {
+            padding: 20px;
+            .ques {
+                @include font(14px,#3c3c3c);
+                line-height: 20px;
+            }
+            .img-box {
+                img {
+                    margin-top: 20px;
+                    width: 70px;
+                    height: 70px;
+                    margin-left: 20px;
+                    &:first-child {
+                        margin-left:0
+                    }
+                }
+            }
+            .time-status {
+                margin-top:5px;
+                span {
+                    margin-right: 20px;
+                    @include font(12px,#999999);
+                    &:last-child {
+                        color:#0478d2;
+                    }
+                }
+            }
+
+            .ask-box {
+                margin-top: 25px;
+                p {
+                    @include font(14px,#333333);
+                    line-height: 24px;
+                }
+            }
+
+            .close-btn {
+                margin: 20px auto 0;
+                @include btn(67px,30px,#f5f5f5);
+                @include font(14px,#3c3c3c);
+                border: 1px solid #d0d0d0;
+                border-radius: 4px;
+            }
+            textarea {
+                width: 100%;
+                height:180px;
+                border: 1px solid #d0d0d0;
+                margin-top: 20px;
+                padding: 10px;
+
+            }
+        }
+    }
+}
