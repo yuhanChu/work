@@ -16,10 +16,10 @@
             <div class="sx-box">
                 <template>
                     <i-select style="width:190px;" placeholder="回复状态" clearable>
-                        <i-option v-for="item in answerList" :value="item.value">{{ item.label }}</i-option>
+                        <i-option v-for="item in replyList" :value="item.value">{{ item.label }}</i-option>
                     </i-select>
                     <i-select style="width:190px;margin-left: 20px;" placeholder="问题状态" clearable>
-                        <i-option v-for="item in askList" :value="item.value">{{ item.label }}</i-option>
+                        <i-option v-for="item in problemList" :value="item.value">{{ item.label }}</i-option>
                     </i-select>
                 </template>
             </div>
@@ -81,8 +81,8 @@
 var app = new Vue({
     el: '#app',
     data: {
-        askList: [{ value: '1', label: '正常' }, { value: '2', label: '关闭' }, { value: '3', label: '删除' }],
-        answerList: [{ value: '1', label: '已回复' }, { value: '2', label: '待回复' }],
+        problemList: [{ value: '1', label: '正常' }, { value: '2', label: '关闭' }, { value: '3', label: '删除' }],
+        replyList: [{ value: '1', label: '已回复' }, { value: '2', label: '待回复' }],
         dataList: [1, 2, 3],
         asked: true,
         lookShow:false,
