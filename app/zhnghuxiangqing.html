@@ -20,6 +20,7 @@
                 <div @click="showBox(4)">交易信息</div>
                 <div @click="showBox(5)">变更历史</div>
                 <div @click="showBox(6)">EOS账户状态</div>
+                <div @click="showBox(7)">释放详情</div>
             </div>
             <div class="account-details-main">
                 <!-- 账户 个人 登录信息 -->
@@ -192,6 +193,36 @@
                             <div class="database-btn list-btn">查询</div>
                         </div>
                     </div>
+                </template>
+                <template v-if="cur==7">
+                	<div class="release-content">
+                		<div class="release-content-top">
+                			<ul>
+                				<li>账户类型：币币互换</li>
+                				<li>锁仓总量：200000000.00</li>
+                				<li>待释放量：100000000.00</li>
+                				<li>释放方式：固定比例</li>
+                			</ul>
+                			<ul>
+                				<li>释放比例：3%+1%</li>
+                				<li>开始时间：2018-6-06</li>
+                				<li>释放单位：周</li>
+                			</ul>
+                		</div>
+                		<p>释放详情</p>
+                		<div class="list-box">
+                			<ul>
+                				<li class="li1">释放时间</li>
+                				<li class="li2">释放状态</li>
+                				<li class="li3">释放量</li>
+                			</ul>
+                			<ul>
+                				<li class="li1">2018-6-30 11:13:11</li>
+                				<li class="li2">待释放</li>
+                				<li class="li3">500000.00（1%）</li>
+                			</ul>
+                		</div>
+                	</div>
                 </template>
             </div>
         </div>
@@ -370,7 +401,7 @@ var app = new Vue({
     data: {
         list: [],
         dataList: ['1', '2', 3, 4],
-        cur: 6,
+        cur: 7,
         remarkEmpty: false,
         addRemark: false,
         dropShow: false,
