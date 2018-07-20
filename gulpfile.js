@@ -29,7 +29,7 @@ gulp.task('lr', () => {
         open: "external",
         middleware: [
             proxy('/api', {
-                target: 'http://192.168.1.188',
+                target: 'http://192.168.1.253:99',
                 changeOrigin: true,
             })
         ],

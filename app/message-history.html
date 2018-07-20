@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>发送历史</title>
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/message-history.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">合作账户管理>>>发送历史 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="history-content">
+            <div class="history-top">
+                <template>
+                    <Date-picker type="date" :editable="false" placeholder="选择日期" style="width: 190px;" :options="oneOption" @on-change="oneDate"></Date-picker>
+                    <span class="cen">至</span>
+                    <Date-picker type="date" :editable="false" placeholder="选择日期" style="width: 190px;" :options="twoOption" @on-change="twoDate"></Date-picker>
+                    <i-select style="width:190px;height:30px;margin-left: 20px" clearable @on-change="role">
+                        <i-option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                </template>
+            </div>
+            <div class="list-box">
+                <ul>
+                    <li class="li1">序号</li>
+                    <li class="li2">发送时间</li>
+                    <li class="li3">内容</li>
+                    <li class="li4">手机号</li>
+                    <li class="li5">姓名</li>
+                    <li class="li6">账户类型</li>
+                </ul>
+                <ul v-for="(it,k) in dataList">
+                    <li class="li1" v-text="k+1">序号</li>
+                    <li class="li2">2018-7-18 16:46:35</li>
+                    <li class="li3">卡仕达卡是肯定换卡率撒大声地爱谁sad卡仕达卡是肯定换卡率撒大声地爱谁sad卡仕达卡是肯定换卡率撒大声地爱谁sad</li>
+                    <li class="li4">136 0000 0000</li>
+                    <li class="li5">张三</li>
+                    <li class="li6">投资人、股东</li>
+                </ul>
+            </div>
+            <div class="fy">
+                <template>
+                    <Page ref="pages" total="100" size="small"></Page>
+                </template>
+            </div>
+        </div>
+        <div id="mess-layer" v-cloak v-show="messShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <span class="f_left">短信内容</span>
+                    <span class="f_right"></span>
+                </div>
+                <div class="layer-content">
+                    <p>
+                        啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华 啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华 啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华 啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华 啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华 啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华 啊搜我就等死黄道婆我哈水平低哈四平的哈斯配合地阿斯普惠地铺阿是低配华斯杜哈石大胜华
+                    </p>
+                    <div>确定</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        typeList: [
+            { value: '0', label: '普通用戶' },
+            { value: '1', label: '股东、创始人' },
+            { value: '2', label: '币币互换' },
+            { value: '3', label: '团队运营' },
+            { value: '4', label: '生态用户' }
+        ],
+        dataList: [1, 2, 3, 4, 5, 6, 7],
+        messShow: false,
+        oneOption: null,
+        twoOption: null,
+    },
+    methods: {
+        oneDate(res) {
+            this.twoOption = {
+                disabledDate(date) {
+                    return date && date.valueOf() < new Date(res);
+                }
+            }
+        },
+        twoDate(res) {
+            this.oneOption = {
+                disabledDate(date) {
+                    return date && date.valueOf() > new Date(res);
+                }
+            }
+        },
+        role(res) {
+            
+        }
+    },
+});
+</script>
+
+</html>

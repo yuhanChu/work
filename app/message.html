@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>短信消息</title>
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/message.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">合作账户管理>>>短信消息 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="message-content">
+            <div class="message-top">
+                <template>
+                    <i-select style="width:190px;height:30px;">
+                        <i-option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                </template>
+                <div class="mess-btn">发送短信</div>
+                <div class="mess-btn">发送短信</div>
+            </div>
+            <div class="message-list">
+                <ul class="list">
+                    <li class="li1">
+                        <Checkbox :indeterminate="indeterminate" :value="checkAll" @click.prevent.native="handleCheckAll"></Checkbox>
+                    </li>
+                    <li class="li2">序号</li>
+                    <li class="li3">手机号</li>
+                    <li class="li4">姓名</li>
+                    <li class="li5">账户类型</li>
+                </ul>
+                <ul class="list" v-for="(it,k) in dataList">
+                    <li class="li1">
+                        <Checkbox-Group v-model="checkAllGroup" @on-change="checkAllGroupChange">
+                            <Checkbox :label="k+1"><span style="visibility: hidden;">0</span></Checkbox>
+                        </Checkbox-Group>
+                    </li>
+                    <li class="li2" v-text="k+1">1</li>
+                    <li class="li3">136 0000 0000</li>
+                    <li class="li4">张三</li>
+                    <li class="li5">投资人、股东</li>
+                </ul>
+            </div>
+        </div>
+        <div id="word-layer" v-cloak v-show="wordShow">
+        	<div class="word">发送成功</div>
+        </div>
+        <div id="mess-layer" v-cloak v-show="messShow">
+        	<div class="layer">
+        		<div class="layer-top">
+        			<span class="f_left">短信内容</span>
+        			<span class="f_right"></span>
+        		</div>
+        		<div class="layer-content">
+        			<textarea></textarea>
+        			<span>96字符、2条短信</span>
+        			<div>发送</div>
+        		</div>
+        	</div>
+        </div>
+    </div>
+</body>
+<!-- <Checkbox :indeterminate="indeterminate" :value="checkAll" @click.prevent.native="handleCheckAll">全选</Checkbox>
+<Checkbox-Group v-model="checkAllGroup" @on-change="checkAllGroupChange">
+    <Checkbox label="1"><span>香蕉</span></Checkbox>
+</Checkbox-Group>
+<Checkbox-Group v-model="checkAllGroup" @on-change="checkAllGroupChange">
+    <Checkbox label="2"><span>苹果</span></Checkbox>
+</Checkbox-Group>
+<Checkbox-Group v-model="checkAllGroup" @on-change="checkAllGroupChange">
+    <Checkbox label="3"><span>西瓜</span></Checkbox>
+</Checkbox-Group> -->
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        indeterminate: false,
+        checkAll: false,
+        checkAllGroup: [],
+        typeList: [],
+        wordShow:false,
+        messShow:false,
+        dataList:[1,2,3,5,1,2,3,5,1,2,3,5,1,2,3,5]
+    },
+    methods: {
+        handleCheckAll() {
+            if (this.indeterminate) {
+                this.checkAll = false;
+            } else {
+                this.checkAll = !this.checkAll;
+            }
+            this.indeterminate = false;
+
+            if (this.checkAll) {
+                this.checkAllGroup = [1, 2, 3];
+            } else {
+                this.checkAllGroup = [];
+            }
+        },
+        checkAllGroupChange(data) {
+            if (data.length === 3) {
+                this.indeterminate = false;
+                this.checkAll = true;
+            } else if (data.length > 0) {
+                this.indeterminate = true;
+                this.checkAll = false;
+            } else {
+                this.indeterminate = false;
+                this.checkAll = false;
+            }
+        }
+    },
+});
+</script>
+
+</html>

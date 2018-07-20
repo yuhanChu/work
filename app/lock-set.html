@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>锁仓设置</title>
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/lock-set.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">合作账户管理>>>锁仓设置 <a href="javascript:;" @click="window.history.back()" class="back">&lt;&lt;返回</a></div>
+        <div class="lock-content">
+            <div class="lock-top">
+                <template>
+                    <i-select style="width:190px;height:30px;" clearable @on-change="statusChange">
+                        <i-option v-for="item in typeList" :value="item.value" :key="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                </template>
+            </div>
+            <div class="list-box">
+                <ul>
+                    <li class="li1">序号</li>
+                    <li class="li2">手机号</li>
+                    <li class="li3">姓名</li>
+                    <li class="li4">账户类型</li>
+                    <li class="li5">EOS主网账号名</li>
+                    <li class="li6">申请锁仓</li>
+                    <li class="li7">操作</li>
+                </ul>
+                <ul v-for="(it,k) in dataList">
+                    <li class="li1" v-text="k+1">序号</li>
+                    <li class="li2">13333333333</li>
+                    <li class="li3">张三</li>
+                    <li class="li4">投资人、股东</li>
+                    <li class="li5">mikkle</li>
+                    <li class="li6">申请锁仓</li>
+                    <li class="li7"><a href="javascript:;">详情</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="fy">
+            <template>
+                <Page ref="pages" total="100" size="small"></Page>
+            </template>
+        </div>
+        <div id="lock-layer" v-cloak v-show="lockShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <span class="f_right"></span>
+                </div>
+                <div class="layer-content">
+                    <p>锁仓状态：申请锁仓</p>
+                    <p>申请理由：XXXXXXXXX</p>
+                    <p>申请时间：2018-7-19 15:56:38</p>
+                    <div class="lock-btn">
+                        <div>锁仓</div>
+                        <div>拒绝</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="tools/jquery.min.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.js"></script>
+<script type="text/javascript">
+var api = '/api/gov/user/handle';
+var app = new Vue({
+    el: '#app',
+    data: {
+        typeList: [{ value: '1', label: '申请锁仓' }, { value: '2', label: '申请解锁' }, { value: '0', label: '锁仓中' }, { value: '3', label: '申请解绑' }],
+        dataList: [1, 2, 3, 4, 5, 6, 7],
+        lockShow: false,
+        getJson: {
+            func: 'getApplyList',
+            page: 1, //页码
+            type: '', //0锁仓中 1申请冻结 2申请解冻 3申请解绑
+        }
+    },
+    methods: {
+        statusChange(res) {
+            console.log(res)
+        },
+        getList() {
+            $.post(api,this.getJson,function(res) {
+                console.log(res)
+            });
+        },
+    },
+    created() {
+        this.getList()
+    },
+});
+</script>
+
+</html>
