@@ -441,9 +441,9 @@ body {
                 @include font(12px, #3c3c3c);
                 line-height: 20px;
                 i {
-                    @include font(12px,#3c3c3c);
-                    cursor:pointer;
-                    margin-left:5px;
+                    @include font(12px, #3c3c3c);
+                    cursor: pointer;
+                    margin-left: 5px;
                 }
             }
             .li1 {
@@ -484,6 +484,103 @@ body {
         margin-top: 18px;
     }
 }
+
+
+.drop-content {
+    border-top: 1px solid #d0d0d0;
+    .drop-top {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        .num {
+            @include font(18px, #3c3c3c);
+            margin-left: 40px;
+        }
+    }
+    .echart-box {
+        height: 260px;
+        &>div {
+            margin-top: 30px;
+            width: 50%;
+            height:100%;
+            float:left;
+        }
+    }
+    .drop-list {
+        margin-top: 25px;
+        &>span {
+            @include font(14px, #999999);
+        }
+        .list-box {
+            border: 1px solid #d0d0d0;
+            margin-top: 10px;
+            .list {
+                padding: 7px 0;
+                display: flex;
+                align-items: center;
+                border-top: 1px solid #d0d0d0;
+                &:first-child {
+                    border-top: 0;
+                }
+                &:nth-child(2n+2) {
+                    background: #f9f9f9;
+                }
+                li {
+                    @include font(12px, #3c3c3c);
+                    line-height: 20px;
+                    padding-left: 1%;
+                    word-break: break-all;
+                    .icon-sanjiaodown {
+                        font-size: 12px;
+                        margin-left: 10px;
+                        cursor: pointer;
+                        &.r180 {
+                            transform: rotate(180deg);
+                            display:inline-block;
+                        }
+                    }
+
+                    a {
+                        color: #0478d2;
+                    }
+                }
+                .li1 {
+                    width: 181/1130*100+%
+                }
+                .li2 {
+                    width: 95/1130*100+%
+                }
+                .li3 {
+                    width: 242/1130*100+%
+                }
+                .li4 {
+                    width: 153/1130*100+%
+                }
+                .li5 {
+                    width: 162/1130*100+%
+                }
+                .li6 {
+                    width: 198/1130*100+%
+                }
+                .li7 {
+                    width: 98/1130*100+%
+                }
+            }
+        }
+    }
+    .fy {
+        text-align: center;
+        margin-top: 18px;
+        &>span {
+            font-size: 14px;
+            color: #999;
+            float:left;
+        }
+    }
+}
+
+
+
 
 
 

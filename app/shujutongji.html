@@ -17,6 +17,7 @@
                 <div class="token-btn">历史走势</div>
                 <div class="token-btn">Token分布</div>
                 <div class="token-btn">币币互换统计</div>
+                <div class="token-btn">空投统计</div>
             </div>
             <!-- token分布 -->
             <template v-if="cur==2">
@@ -193,6 +194,51 @@
                     </div>
                 </div>
             </template>
+            <template v-if="cur==4">
+                <div class="drop-content">
+                    <div class="drop-top">
+                        <template>
+                            <i-select style="width:220px;">
+                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                            </i-select>
+                        </template>
+                        <div class="num">空投总量：20000000000.00</div>
+                    </div>
+                    <div class="echart-box">
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <div class="drop-list">
+                        <span>账户空投详情</span>
+                        <div class="list-box">
+                            <ul class="list">
+                                <li class="li1">手机号</li>
+                                <li class="li2">姓名</li>
+                                <li class="li3">EOS主网账号</li>
+                                <li class="li4">账户类型</li>
+                                <li class="li5">已空投数量<i class="iconfont icon-sanjiaodown" :class="{'r180':rota==1?true:false}"></i></li>
+                                <li class="li6">空投时间</li>
+                                <li class="li7">操作</li>
+                            </ul>
+                            <ul class="list">
+                                <li class="li1">13600000000</li>
+                                <li class="li2">张三</li>
+                                <li class="li3">21aw165e1w6a51e65w16e1</li>
+                                <li class="li4">币币互换</li>
+                                <li class="li5">1642200.00</li>
+                                <li class="li6">2018-7-24 11:28:38</li>
+                                <li class="li7"><a href="javascript:void(0);">详情</a></li>
+                            </ul>
+                        </div>
+                        <div class="fy">
+                            <span>394条数据</span>
+                            <template>
+                                <Page ref="pages" total="100" size="small"></Page>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
         <!-- 查看数据 -->
         <div id="check" v-show="checkShow" v-cloak>
@@ -265,8 +311,9 @@ var app = new Vue({
     data: {
         typeList: [],
         list: [1, 2, 2, 1, 2],
-        cur: 3,
+        cur: 4,
         checkShow: false,
+        rota:'',
     },
     methods: {
 

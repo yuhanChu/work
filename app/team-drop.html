@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>团队空投设置</title>
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/team-drop.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">合作账户管理>>>团队空投设置 <a href="javascript:;" @click="window.history.back()" class="back">&lt;&lt;返回</a></div>
+        <div class="con">
+            <a class="add-btn" href="javascript:;">新增</a>
+            <div class="list-box">
+                <ul>
+                    <li class="li1">空投名称</li>
+                    <li class="li2">空投时段</li>
+                    <li class="li3">空投总数量理论值</li>
+                    <li class="li4">空投总数量实际值</li>
+                    <li class="li5">关联账户数</li>
+                    <li class="li7">操作</li>
+                </ul>
+                <ul v-for="it in dataList">
+                    <li class="li1">一期</li>
+                    <li class="li2">2018年7月1日至2018年9月1日</li>
+                    <li class="li3">500000000.00</li>
+                    <li class="li4">489000000.00</li>
+                    <li class="li5">10</li>
+                    <li class="li7"><a href="javascript:;">修改</a></li>
+                </ul>
+            </div>
+            <div class="fy">
+                <span>5条数据</span>
+                <template>
+                    <Page ref="pages" :total="total" size="small" @on-change="page"></Page>
+                </template>
+            </div>
+        </div>
+        <div id="add-layer">
+            <div class="layer">
+                <div class="layer-top">
+                    <span class="f_right"></span>
+                </div>
+                <div class="layer-content">
+                    <div>
+                        <span class="tit">空投名称：</span>
+                        <input type="text">
+                    </div>
+                    <div>
+                        <span class="tit">空投时段：</span>
+                        <template>
+                            <Date-picker type="date" placeholder="选择日期" :editable="false" style="width: 165px"></Date-picker>
+                            <span class="zh">至</span>
+                            <Date-picker type="date" placeholder="选择日期" :editable="false" style="width: 165px"></Date-picker>
+                        </template>
+                    </div>
+                    <div>
+                        <span class="tit">备注：</span>
+                        <textarea></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.js"></script>
+<script type="text/javascript">
+var api = '/api/gov/user/handle';
+var app = new Vue({
+    el: '#app',
+    data: {
+        dataList: [1, 1, 1],
+        total: 100,
+        getJson: {
+            page: 1
+        }
+    },
+    methods: {
+        page: function(res) {
+            this.getJson.page = res;
+        }
+    },
+    watch: {
+        getJson: {
+            handler: function(n, o) {
+                if (n) {
+                    console.log('改变啦');
+                    console.log(this.dataList)
+                }
+            },
+            deep: true
+        }
+    },
+    created: function() {}
+})
+</script>
+
+</html>
