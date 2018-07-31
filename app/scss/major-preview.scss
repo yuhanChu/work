@@ -341,6 +341,19 @@ body {
                         .list-top {
                             @include font(14px, #333333);
                             line-height: 28px;
+                            position: relative;
+                            i {
+                                position: absolute;
+                                @include font(16px,#3c3c3c);
+                                cursor: pointer;
+                                left: -30px;
+                                top:50%;
+                                transform: translateY(-50%);
+                                display:inline-block;
+                            }
+                            .r90 {
+                                transform: translateY(-50%) rotate(90deg);
+                            }
                             p {
                                 margin: 0;
                             }
@@ -348,11 +361,7 @@ body {
                         .list-bottom {
                             @include font(14px, #666);
                             line-height: 28px;
-                            display:none;
                             p {margin: 0;}
-                            &.show {
-                                display: block;
-                            }
                         }
                     }
                     .h70 {
