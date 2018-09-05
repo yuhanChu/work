@@ -18,6 +18,7 @@
                 <div class="token-btn">Token分布</div>
                 <div class="token-btn">币币互换统计</div>
                 <div class="token-btn">空投统计</div>
+                <div class="token-btn">提现统计</div>
             </div>
             <!-- token分布 -->
             <template v-if="cur==2">
@@ -239,6 +240,57 @@
                     </div>
                 </div>
             </template>
+            <template v-if="cur==5">
+                <div class="with-content">
+                    <div class="withed">已累计提现：213128000.00</div>
+                    <div class="with-top">
+                        <template>
+                            <i-select style="width:190px;">
+                                <i-option v-for="item in typeList" :value="item.value">{{ item.label }}</i-option>
+                            </i-select>
+                            <Date-picker type="date" :editable="false" :options="oneDate" placeholder="选择日期" @on-change="oneCh" style="width: 190px;margin-left: 10px;"></Date-picker>
+                            <span class="zh">至</span>
+                            <Date-picker type="date" :editable="false" :options="twoDate" placeholder="选择日期" @on-change="twoCh" style="width: 190px">
+                            </Date-picker>
+                        </template>
+                    </div>
+                    <div class="e-box clearfix">
+                        <div id="e-one"></div>
+                        <div id="e-two"></div>
+                    </div>
+                    <div class="ts">单笔大额提现（大于500W）</div>
+                    <div class="with-box">
+                        <div class="list-box">
+                            <ul>
+                                <li class="li1">序号</li>
+                                <li class="li2">时间</li>
+                                <li class="li3">手机号</li>
+                                <li class="li4">姓名</li>
+                                <li class="li5">EOS主网账户</li>
+                                <li class="li6">提现交易所</li>
+                                <li class="li7">提现数量</li>
+                                <li class="li8">操作</li>
+                            </ul>
+                            <ul v-for="it in list">
+                                <li class="li1">1</li>
+                                <li class="li2">2018-8-3 12:01:46</li>
+                                <li class="li3">13333333333</li>
+                                <li class="li4">张三</li>
+                                <li class="li5">zhangsan1</li>
+                                <li class="li6">火币</li>
+                                <li class="li7">9000000.00</li>
+                                <li class="li8"><a href="javascript:void(0);" @click="lookShow=!lookShow">详情</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="fy">
+                        <span>256条数据</span>
+                        <template>
+                            <Page ref="pages" total="100" size="small"></Page>
+                        </template>
+                    </div>
+                </div>
+            </template>
         </div>
         <!-- 查看数据 -->
         <div id="check" v-show="checkShow" v-cloak>
@@ -299,6 +351,44 @@
                 </div>
             </div>
         </div>
+        <div id="add-info" v-cloak v-show="lookShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <span class="f_right"></span>
+                </div>
+                <div class="layer-content">
+                    <div>
+                        <span class="s-left">时间：</span>
+                        <span class="s-right">2018-7-2 15:02:21</span>
+                    </div>
+                    <div>
+                        <span class="s-left">发款方：</span>
+                        <span class="s-right">zhangsan1</span>
+                    </div>
+                    <div>
+                        <span class="s-left">提现交易所：</span>
+                        <span class="s-right">火币</span>
+                    </div>
+                    <div>
+                        <span class="s-left">收款方：</span>
+                        <span class="s-right">huobi1</span>
+                    </div>
+                    <div>
+                        <span class="s-left">金额：</span>
+                        <span class="s-right">9000000.00</span>
+                    </div>
+                    <div>
+                        <span class="s-left">hash值：</span>
+                        <span class="s-right">123KJ34IU2G3UI4G23UG4U23G4U23HIU4G</span>
+                    </div>
+                    <div>
+                        <span class="s-left">状态：</span>
+                        <span class="s-right">交易成功</span>
+                    </div>
+                </div>
+                <div class="true-btn" @click="lookShow=!lookShow">关闭</div>
+            </div>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="js/jq.js"></script>
@@ -311,16 +401,34 @@ var app = new Vue({
     data: {
         typeList: [],
         list: [1, 2, 2, 1, 2],
-        cur: 4,
+        cur: 5,
         checkShow: false,
-        rota:'',
+        rota: '',
+        oneDate: null,
+        twoDate: null,
+        lookShow: false,
     },
     methods: {
-
+        oneCh: function(res) {
+            console.log(res)
+            this.twoDate = {
+                disabledDate(date) {
+                    return date && date.valueOf() < new Date(res);
+                }
+            }
+        },
+        twoCh: function(res) {
+            console.log(res)
+            this.oneDate = {
+                disabledDate(date) {
+                    return date && date.valueOf() > new Date(res);
+                }
+            }
+        }
     }
 });
 var dom = document.getElementById("container");
-var myChart = echarts.init(dom);
+// var myChart = echarts.init(dom);
 var app = {};
 option = null;
 option = {
@@ -360,7 +468,7 @@ option = {
     }]
 };;
 if (option && typeof option === "object") {
-    myChart.setOption(option, true);
+    // myChart.setOption(option, true);
 }
 </script>
 

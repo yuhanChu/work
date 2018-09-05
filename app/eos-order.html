@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <link rel="stylesheet" type="text/css" href="css/iview.css">
+    <link rel="stylesheet" type="text/css" href="css/eos-order.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="head">系统设置>>>订单管理 <a href="javascript:;" class="back">&lt;&lt;返回</a></div>
+        <div class="order-content">
+            <div class="fil-box">
+                <template>
+                    <i-select style="width:190px;height:30px;" clearable>
+                        <i-option v-for="item in timeList" :value="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                    <i-select style="width:190px;height:30px;" clearable>
+                        <i-option v-for="item in showList" :value="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                    <i-select style="width:190px;height:30px;" clearable>
+                        <i-option v-for="item in payList" :value="item.value">{{ item.label }}</i-option>
+                    </i-select>
+                    <Date-picker type="date" :editable="false" :options="oneDate" placeholder="选择日期" @on-change="oneCh" style="width: 190px;margin-left: 25px;"></Date-picker>
+                    <span class="zh">至</span>
+                    <Date-picker type="date" :editable="false" :options="twoDate" placeholder="选择日期" @on-change="twoCh" style="width: 190px">
+                    </Date-picker>
+                </template>
+            </div>
+            <span class="payed">已付款订单：256</span>
+            <div class="e-box clearfix">
+                <div class="f_left"></div>
+                <div class="f_left"></div>
+            </div>
+            <div class="order-box">
+                <span>订单详情</span>
+                <div class="list-box">
+                    <ul>
+                        <li class="li1">序号</li>
+                        <li class="li2">付款时间</li>
+                        <li class="li3">手机号</li>
+                        <li class="li4">付款时EOS价格</li>
+                        <li class="li5">付款总金额</li>
+                        <li class="li6">优惠</li>
+                        <li class="li7">付款方式</li>
+                        <li class="li8">操作</li>
+                    </ul>
+                    <ul v-for="it in dataList">
+                        <li class="li1">1</li>
+                        <li class="li2">2018-8-3 12:01:46</li>
+                        <li class="li3">13333333333</li>
+                        <li class="li4">49.0</li>
+                        <li class="li5">98.0</li>
+                        <li class="li6">无</li>
+                        <li class="li7">支付宝</li>
+                        <li class="li8"><a href="javascript:void(0);" @click="lookShow=!lookShow">详情</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="fy">
+                <span>256条数据</span>
+                <template>
+                    <Page ref="pages" total="100" size="small"></Page>
+                </template>
+            </div>
+        </div>
+        <div id="add-info" v-cloak v-show="lookShow">
+            <div class="layer">
+                <div class="layer-top">
+                    <span class="f_right"></span>
+                </div>
+                <div class="layer-content">
+                    <div>
+                        <span class="s-left">付款单号：</span>
+                        <span class="s-right">201808031554645611321</span>
+                    </div>
+                    <div>
+                        <span class="s-left">付款时间：</span>
+                        <span class="s-right">2018-8-3 14:22:38</span>
+                    </div>
+                    <div>
+                        <span class="s-left">手机号：</span>
+                        <span class="s-right">13333333333</span>
+                    </div>
+                    <div>
+                        <span class="s-left">付款方式：</span>
+                        <span class="s-right">支付宝</span>
+                    </div>
+                    <div>
+                        <span class="s-left">付款账号：</span>
+                        <span class="s-right">18600515555</span>
+                    </div>
+                    <div>
+                        <span class="s-left">付款时EOS价格：</span>
+                        <span class="s-right">49.0</span>
+                    </div>
+                    <div>
+                        <span class="s-left">付款总金额：</span>
+                        <span class="s-right">98.0</span>
+                    </div>
+                    <div>
+                        <span class="s-left">收款账户：</span>
+                        <span class="s-right">16650541123</span>
+                    </div>
+                    <div>
+                        <span class="s-left">优惠：</span>
+                        <span class="s-right">无</span>
+                    </div>
+                </div>
+                <div class="true-btn" @click="lookShow=!lookShow">确定</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/vue.js"></script>
+<script type="text/javascript" src="js/iview.js"></script>
+<script type="text/javascript">
+var app = new Vue({
+    el: '#app',
+    data: {
+        timeList: [{ value: '1', label: '近半年' }, { value: '2', label: '近一月' }, { value: '3', label: '近一周' }],
+        showList: [{ value: '1', label: '显示订单数量' }, { value: '2', label: '显示付款金额' }],
+        payList: [{ value: '1', label: '支付宝数据' }, { value: '2', label: '微信数据' }],
+        dataList: [1, 2, 3, 4],
+        oneDate: null,
+        twoDate: null,
+        lookShow: false,
+    },
+    methods: {
+        oneCh: function(res) {
+            console.log(res)
+            this.twoDate = {
+                disabledDate(date) {
+                    return date && date.valueOf() < new Date(res);
+                }
+            }
+        },
+        twoCh: function(res) {
+            console.log(res)
+            this.oneDate = {
+                disabledDate(date) {
+                    return date && date.valueOf() > new Date(res);
+                }
+            }
+        }
+    },
+});
+</script>
+
+</html>

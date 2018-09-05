@@ -43,7 +43,7 @@
         <div class="student-btn clearfix">
             <div class="up-load" style="display: none;">下载模板</div>
             <div class="daoru" style="display: none;">导入学生</div>
-            <div class="add" v-show="yd">手动添加</div>
+            <div class="add" v-show="yd" @click="openAdd">手动添加</div>
             <div class="yidong" v-show="yd" @click="yidongClick">批量移动</div>
             <div class="ydto" v-show="!yd" v-cloak>移动到</div>
             <div class="cancel" v-show="!yd" v-cloak @click="cancelClick">取消</div>
@@ -69,7 +69,9 @@
                 <li class="li7">添加时间</li>
                 <li class="li8" v-show="yd">操作</li>
             </ul>
-            <student-list :yidong="yd"></student-list>
+            <div v-for="(it,k) in [1,1,1]">
+                <student-list :yidong="yd" :kk="k"></student-list>
+            </div>
         </div>
         <div id="add-student" v-cloak v-show="addShow">
             <div class="bg"></div>
@@ -142,7 +144,7 @@
                     <Checkbox label="11"></Checkbox>
                 </Checkbox-group>
             </li>
-            <li class="li1">1</li>
+            <li class="li1" v-text="kk+1">1</li>
             <li class="li2">
                 <p>李磊</p>
             </li>
@@ -183,7 +185,7 @@
 <script type="text/javascript">
 var sTemp = Vue.component('student-list', {
     template: "#list",
-    props: ['yidong'],
+    props: ['yidong','kk'],
     data: function() {
         return {
             social: [],
@@ -195,7 +197,7 @@ var sTemp = Vue.component('student-list', {
         }
     },
     mounted: function() {
-        // console.log(this.social)
+        console.log(this.kk)
     }
 });
 var app = new Vue({
@@ -238,6 +240,9 @@ var app = new Vue({
         },
         cancelClick: function() {
             this.yd = true;
+        },
+        openAdd:function() {
+            this.addShow = true;
         },
     }
 });
